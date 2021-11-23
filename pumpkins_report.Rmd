@@ -7,7 +7,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+library(ggplot2)
 library(here)
 library(tidyverse)
 ```
@@ -15,20 +15,32 @@ library(tidyverse)
 ## Introduction
 
 Write some text here about what you are doing. Show the code for reading in the `pumpkins.csv` file.
+Displaying pumpkins table
 
 ```{r code_block1}
-# add some code
+pumpkin <- read.csv('pumpkins.csv')
+head(pumpkin)
 ```
 
 ## Converting weights
 
 Write a **function** to alter the weight in pounds to kg. Demonstrate the code below. Then convert the weight and create **a new** column called `weight_kg`
+```{r convertingweight, echo = TRUE}
+poundstokg <- function(x){
+  return(x/2.2)
+}
+pumpkin$weight_kg <- poundstokg(pumpkin$weight_lbs)
+head(pumpkin)
+```
 
 ## A pumpkin plot
 
 Here I want you to plot the relationship between the actual weight and the estimated weight. Both axes have to be in the same units - it is up to you whether it is lbs or kg but remember to write some text explaining this.
 
 **Also** explain what the plot shows and whether there are outliers
+```{r}
+ggplot(pumpkin, aes(weight_lbs, est_weight)) + geom_point()
+```
 
 ## Some pumpkin queries
 
